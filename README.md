@@ -251,7 +251,10 @@ Please make sure to update tests as appropriate.
 ## Cite :mortar_board:
 
 
-Also cite:
+**Also cite:**
+
+[Anton Robert, Panagiotis Kl. Barkoutsos, Stefan Woerner, Ivano Tavernelli. Resourceefficient quantum algorithm for protein folding. npj Quantum Information, 7(1), 38, 2021. DOI: https://doi.org/10.1038/s41534-021-00368-4](https://www.nature.com/articles/s41534-021-00368-4) 
+
 ![Static Badge](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.7776174-blue?link=https://zenodo.org/records/7776174)
  
 Qiskit Research is automatically uploaded to Zenodo with every release. Click the badge above to see all citation formats for all versions, or just use this [BibTeX file](https://github.com/qiskit-community/qiskit-research/blob/main/CITATION.bib).
