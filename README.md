@@ -18,7 +18,7 @@ Modification of the IBM public code by adding protein folding in different phras
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
 [![GitHub stars](https://img.shields.io/github/stars/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes/stargazers)
 ![GitHub repo size](https://img.shields.io/github/repo-size/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
-[![GitHub license](https://img.shields.io/github/license/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
+[![GitHub license](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![GitHub language count](https://img.shields.io/github/languages/count/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
