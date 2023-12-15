@@ -19,7 +19,6 @@ Modification of the IBM public code by adding protein folding in different phras
 ![GitHub language count](https://img.shields.io/github/languages/count/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
 
-
 </div>
 
 <div align="center">
