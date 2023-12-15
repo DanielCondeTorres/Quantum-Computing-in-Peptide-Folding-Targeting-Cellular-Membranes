@@ -107,7 +107,7 @@ No external file is required.
 
 <!-- Usage -->
 ## Usage ⚙️
-In order to run this program, the following command has to be used:
+In order to run this program, the following command has to be used in the **Working_Area**:
 ```
 make run  # To perform the search for the most stable state of your amino acid sequence.
 make representation folder=/path/to/the/folder # To get a picture of the most stable structure of your system, in the folder that you have the STABLE.xyz file.
