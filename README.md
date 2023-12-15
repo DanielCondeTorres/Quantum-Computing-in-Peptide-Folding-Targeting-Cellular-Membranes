@@ -109,9 +109,9 @@ No external file is required.
 ## Usage ⚙️
 In order to run this program, the following command has to be used:
 ```
-make run folder=/path/to/the/folder # To perform the search for the most stable state of your amino acid sequence.
+make run  # To perform the search for the most stable state of your amino acid sequence.
 make representation folder=/path/to/the/folder # To get a picture of the most stable structure of your system, in the folder that you have the STABLE.xyz file.
-make plots # It allows to obtain the evolution of the energy with the number of iterations, in the folder that you have the energy_iteractions.txt file.
+make plots folder=/path/to/the/folder # It allows to obtain the evolution of the energy with the number of iterations, in the folder that you have the energy_iteractions.txt file.
 ```
 ### In the main.py file, in the inputs section we can choose:
 
