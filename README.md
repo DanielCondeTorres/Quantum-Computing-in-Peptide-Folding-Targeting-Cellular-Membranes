@@ -1,6 +1,6 @@
 # Quantum Computing in Peptide Folding Targeting Cellular Membranes
 
-Modification of the [IBM public code](https://github.com/qiskit-community/qiskit-research/tree/main) by adding protein folding in different phrases as well as the study of folding at a polar/apolar interface.
+Modification of the IBM public [code](https://github.com/qiskit-community/qiskit-research/tree/main) by adding protein folding in different phrases as well as the study of folding at a polar/apolar interface.
 
 
 <p align="center">
