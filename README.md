@@ -196,12 +196,11 @@ Brief summary:
 
 * **energy_iteractions.txt:** Presents information on the evolution of energy (VQE method), with respect to each interaction.
 
-* **output.xyz:** File that presents the conformations of the peptide that I explore during the calculation. Can be loaded with [VMD](https://www.ks.uiuc.edu/Research/vmd).
+* **output.xyz:** File that presents the conformations of the peptide that I explore during the calculation. The surface is assigned with the letter Z Can be loaded with [VMD](https://www.ks.uiuc.edu/Research/vmd).
 
-* **plane_vmd.xyz:** File that presents the interface in a .xyz file. Can be loaded with [VMD](https://www.ks.uiuc.edu/Research/vmd).
+* **plane_vmd.xyz:** File that presents the  most stable conformation of the peptide in a .xyz file. The surface is assigned with the letter Z. Can be loaded with [VMD](https://www.ks.uiuc.edu/Research/vmd).
 
-* **STABLE.xyz:** File that presents the most stable conformation of the peptide (minimum energy). Can be loaded with [VMD](https://www.ks.uiuc.edu/Research/vmd).
-
+* **STABLE.xyz:** File that presents the most stable conformation of the peptide (minimum energy). This file is the one that is read in representation.py providing an image with [Mayavi](https://docs.enthought.com/mayavi/mayavi/) and [Matplotlib](https://matplotlib.org/).
 <p align="center">
   <img src="https://github.com/DanielCondeTorres/Quantum-Quirks-Unraveling-Protein-Folding-Through-an-Advanced-Interface./assets/117435891/456188df-bc99-4fa7-adcd-7449412f5ee3" />
 </p>
