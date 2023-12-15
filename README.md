@@ -42,6 +42,7 @@ In general, the study of peptide and protein folding is an intrinsically very co
     <li><a href="#faqs-interrobang">FAQs</a></li>
     <li><a href="#contributing-%EF%B8%8F">Contributing</a></li>
     <li><a href="#cite-mortar_board">Cite</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
     <li><a href="#license-green_book">License</a></li>
   </ol>
 </details>
@@ -222,7 +223,11 @@ Please make sure to update tests as appropriate.
 <!-- Cite --> 
 ## Cite :mortar_board:
 
+<!-- Acknowledgements --> 
+## Acknowledgements:
 
 <!-- License --> 
 ## License :green_book:
-
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
