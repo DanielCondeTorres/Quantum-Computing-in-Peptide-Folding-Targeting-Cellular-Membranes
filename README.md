@@ -247,7 +247,7 @@ Please make sure to update tests as appropriate.
 <!-- Acknowledgements --> 
 ## Acknowledgements:
 
-This work was supported by the Spanish Agencia Estatal de Investigación (AEI) and the ERDF (PID2022-141534OB-I00 and PID2019-111373RB-I00), by Xunta de Galicia and the ERDF (02\_IN606D\_2022\_2667887, ED431F 2020/05, ED431C 2021/21, ED431B 2022/36 and Centro singular de investigación de Galicia accreditation 2016-2019, ED431G/09, Ministerio de Universidadese for the predoctoral contract (FPU22/00636) and the REACT-EU Funds. All calculations were carried out at CESGA.
+This work was supported by Axencia Galega de Innovación through the Grant Agreement “Despregamento dunha infraestrutura baseada en tecnoloxías cuánticas da información que permita impulsar a I+D+I en Galicia” within the program FEDER Galicia 2014-2020. and the ERDF (PID2022-141534OB-I00 and PID2019-111373RB-I00), by Xunta de Galicia and the ERDF (02\_IN606D\_2022\_2667887, ED431F 2020/05, ED431C 2021/21, ED431B 2022/36 and Centro singular de investigación de Galicia accreditation 2016-2019, ED431G/09, Ministerio de Universidadese for the predoctoral contract (FPU22/00636). Simulations on this work were performed using the Finisterrae III Supercomputer, funded by the project CESGA-01 FINISTERRAE III (CESGA).
 
 <!-- License --> 
 ## License :green_book:
