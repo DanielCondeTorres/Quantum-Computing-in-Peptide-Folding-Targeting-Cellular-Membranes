@@ -2,13 +2,10 @@
 
 Modification of the IBM public code by adding protein folding in different phrases as well as the study of folding at a polar/apolar interface.
 
+
 <p align="center">
-  <img src="https://github.com/DanielCondeTorres/Quantum-Quirks-Unraveling-Protein-Folding-Through-an-Advanced-Interface./assets/117435891/456188df-bc99-4fa7-adcd-7449412f5ee3" />
+  <img src="https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes/assets/73825210/e2779b12-2022-427c-8b87-d5c72c4669c4" />
 </p>
-
-
-
-
 
 
 
@@ -39,6 +36,7 @@ In general, the study of peptide and protein folding is an intrinsically very co
     <li><a href="#general-pre-requirements-computer">Pre-requirements</a></li>
     <li><a href="#required-files-">Required-files</a></li>
     <li><a href="#usage-%EF%B8%8F">Usage</a></li>
+    <li><a href="#output-files-">Output-files</a></li>
     <li><a href="#wiki-">Wiki</a></li>
     <li><a href="#distribution-of-tasks-%EF%B8%8F">Distribution of tasks</a></li>
     <li><a href="#faqs-interrobang">FAQs</a></li>
@@ -182,10 +180,15 @@ Brief summary:
 * w < 0:  aminoacids interact on average attractively with the solvent
 
 
+<!-- Output files -->
+## Output files 📋
+
+<p align="center">
+  <img src="https://github.com/DanielCondeTorres/Quantum-Quirks-Unraveling-Protein-Folding-Through-an-Advanced-Interface./assets/117435891/456188df-bc99-4fa7-adcd-7449412f5ee3" />
+</p>
 
 
-
-
+<!-- WIKI -->
 ## Wiki 📖
 
 Additional information about this modifications can be found in our [Wiki](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes/wiki) **(...Work in progress...)**.
