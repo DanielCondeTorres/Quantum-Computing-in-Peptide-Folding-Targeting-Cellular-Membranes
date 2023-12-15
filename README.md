@@ -175,10 +175,8 @@ Therefore, in the first case the importance of the interface will be ``` cls._in
 ### Quantum simulation parameters
 > [!TIP]
 Brief summary:
-
 * cs > 0: model hydrophilic solvents (water)
 * cs < 0: model hydrophobic solvents (oil)
-
 * w: describes the average interaction of an amino acid with solvent
 * w > 0: aminoacids repel the solvent
 * w < 0:  aminoacids interact on average attractively with the solvent
@@ -215,3 +213,13 @@ In a reasonable time, results can be obtained with sequences of 8 amino acids (1
 <!-- CONTRIBUTING -->
 ## Contributing 🖇️
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+<!-- Cite --> 
+## Cite :mortar_board:
+
+
+<!-- License --> 
+## License :green_book:
+
