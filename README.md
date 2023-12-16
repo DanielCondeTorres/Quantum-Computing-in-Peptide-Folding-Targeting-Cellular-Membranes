@@ -211,8 +211,10 @@ Brief summary:
   <img src="https://github.com/DanielCondeTorres/Quantum-Quirks-Unraveling-Protein-Folding-Through-an-Advanced-Interface./assets/117435891/456188df-bc99-4fa7-adcd-7449412f5ee3" />
 </p>
 
+> [!NOTE]  
+These files are stored in a folder with the peptide sequence and simulation parameters.
 
-* **Results.txt:**  File that stores information about the computing time and the parameters used in your simulation.
+* **Results.txt:**  File that stores information about the computing time and the parameters used in all your simulation.
 
 
 
