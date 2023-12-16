@@ -212,9 +212,9 @@ Brief summary:
 </p>
 
 > [!NOTE]  
-These files are stored in a folder with the peptide sequence and simulation parameters.
+These previous files are stored in a folder with the peptide sequence and simulation parameters.
 
-* **Results.txt:**  File that stores information about the computing time and the parameters used in all your simulation.
+* **Results.txt:**  File that stores information about the computing time and the parameters used in all your simulation in the **Working_Area**.
 
 
 
