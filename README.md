@@ -10,7 +10,7 @@ Modification of the [IBM public code](https://github.com/qiskit-community/qiskit
 
 <div align="center">
   
-[![GitHub forks](https://img.shields.io/github/forks/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes/network)
+[![GitHub forks](https://img.shields.io/github/forks/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes/forks)
 [![GitHub issues](https://img.shields.io/github/issues/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)
 [![GitHub stars](https://img.shields.io/github/stars/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes)](https://github.com/TeamMduse/Quantum-Computing-in-Peptide-Folding-Targeting-Cellular-Membranes/stargazers)
