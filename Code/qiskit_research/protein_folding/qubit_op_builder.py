@@ -361,21 +361,22 @@ class QubitOpBuilder:
                 
                
                #Option 1: We do not take into account the hydrophobicity parameter of the solvent in a phase. Will give a 0, so original MJ is recover
-                if  self._one_solvent_parameter == False:
+                if  self._one_solvent_parameter == False: #when one phase original MJ
                     h_interface +=  self._interface_value * sign_function_approximation * hydrophobicity_value[i]
                     #Finish option 1
                 #Option 2 We take into account the hydrophobicity parameter of the solvent in a phase:
-                elif  self._one_solvent_parameter == True:
+                elif  self._one_solvent_parameter == True: #when interface
                     if self._interface_value != 0:
                         h_interface +=  self._interface_value * sign_function_approximation * hydrophobicity_value[i]
-                    else: #In this option csi =csj
+                    else: #In this option csi =csj the case for one solvent
                         # Negative is more stable, so if aa is hydrophobic ( > 0) will interact with the interphace, remember * cs < 0: model hydrophobic solvents (oil), so that should be negative
                         # and also  w < 0:  aminoacids interact on average attractively with the solvent
                         w += 1
                         upper_bead =  self._peptide.get_main_chain[w]
                         print('distancia: ',distanceMap[bead_initial_distance][upper_bead], 'bead: ',upper_bead, bead_initial_distance)
                         # no tocar este 0.1 para que sea siempre igual
-                        h_interface +=  hydrophobicity_value[i]* self._cs_phase_1*(distanceMap[bead_initial_distance][upper_bead]**2)#Hidrofobicidad marcada por self.cs_phase_1 y tambien si es alta o baja
+                        #h_interface +=  hydrophobicity_value[i]* self._cs_phase_1*(distanceMap[bead_initial_distance][upper_bead]**2)#Hamiltonian to force the system fold depending of the solvent polarity
+                        h_interface = 0 # if only the MJ modification is taken into account
                 #Finish option 2
         return _fix_qubits(h_interface, self._has_side_chain_second_bead), Sign_function_value
     
