@@ -255,7 +255,7 @@ Please make sure to update tests as appropriate.
 
 **Also cite:**
 
-[Anton Robert, Panagiotis Kl. Barkoutsos, Stefan Woerner, Ivano Tavernelli. Resourceefficient quantum algorithm for protein folding. npj Quantum Information, 7(1), 38, 2021. DOI: https://doi.org/10.1038/s41534-021-00368-4](https://www.nature.com/articles/s41534-021-00368-4) 
+[Anton Robert, Panagiotis Kl. Barkoutsos, Stefan Woerner, Ivano Tavernelli. Resource efficient quantum algorithm for protein folding. npj Quantum Information, 7(1), 38, 2021. DOI: https://doi.org/10.1038/s41534-021-00368-4](https://www.nature.com/articles/s41534-021-00368-4) 
 
 ![Static Badge](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.7776174-blue?link=https://zenodo.org/records/7776174)
  
@@ -264,7 +264,7 @@ Qiskit Research is automatically uploaded to Zenodo with every release. Click th
 <!-- Acknowledgements --> 
 ## Acknowledgements:
 
-This work was supported by Axencia Galega de Innovación through the Grant Agreement “Despregamento dunha infraestrutura baseada en tecnoloxías cuánticas da información que permita impulsar a I+D+I en Galicia” within the program FEDER Galicia 2014-2020. and the ERDF (PID2022-141534OB-I00 and PID2019-111373RB-I00), by Xunta de Galicia and the ERDF (02\_IN606D\_2022\_2667887, ED431F 2020/05, ED431C 2021/21, ED431B 2022/36 and Centro singular de investigación de Galicia accreditation 2016-2019, ED431G/09, Ministerio de Universidadese for the predoctoral contract (FPU22/00636). Simulations on this work were performed using the Finisterrae III Supercomputer, funded by the project CESGA-01 FINISTERRAE III (CESGA).
+D.C.T thanks to the Ministerio de Universidades for his predoctoral contract (FPU22/00636). This work was supported by the Spanish Agencia Estatal de Investigación (AEI) and the ERDF (PID2022-141534OB-I00 and PID2019-111373RB-I00), by Xunta de Galicia and the ERDF (02\_IN606D\_2022\_2667887, ED431F 2020/05, ED431C 2021/21, ED431B 2022/36 and Centro singular de investigación de Galicia accreditation 2016-2019, ED431G/09 and Axencia Galega de Innovación through the Grant Agreement “Despregamento dunha infraestrutura baseada en tecnoloxías cuánticas da información que permita impulsar a I+D+I en Galicia” within the program FEDER Galicia 2014-2020. Simulations on this work were performed using the Finisterrae III Supercomputer, funded by the project CESGA-01 FINISTERRAE III.
 
 <!-- License --> 
 ## License :green_book:
