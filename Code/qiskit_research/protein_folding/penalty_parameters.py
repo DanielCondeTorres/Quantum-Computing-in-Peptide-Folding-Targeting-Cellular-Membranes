@@ -45,5 +45,4 @@ class PenaltyParameters:
     def penalty_1(self) -> float:
         """Returns a penalty parameter used to penalize local overlap between beads within a
         nearest neighbor contact."""
-        print('EXPULSION: ',self._penalty_1)
         return self._penalty_1

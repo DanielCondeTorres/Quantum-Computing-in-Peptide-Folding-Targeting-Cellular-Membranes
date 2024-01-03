@@ -31,7 +31,7 @@ from .interface_bead_interaction.auxiliar_mj_modification_hamiltonian import Aux
 
 class QubitOpBuilder:
     """Builds qubit operators for all Hamiltonian terms in the protein folding problem."""
-    def __init__(self, peptide: Peptide, pair_energies: np.ndarray, penalty_parameters: PenaltyParameters, pair_energies_modified_mj: np.ndarray , cs_phase_1: float, cs_phase_2: float, w_phase_1:float, w_phase_2: float, one_solvent_parameter: bool):
+    def __init__(self, peptide: Peptide, pair_energies: np.ndarray, penalty_parameters: PenaltyParameters, pair_energies_modified_mj: np.ndarray , cs_phase_1: float, cs_phase_2: float, w_phase_1:float, w_phase_2: float, one_solvent_parameter: bool, correction_mj: bool):
         """Builds qubit operators for all Hamiltonian terms in the protein folding problem.
 
         Args:
@@ -46,7 +46,7 @@ class QubitOpBuilder:
         self._w_phase_1 = w_phase_1; self._w_phase_2 = w_phase_2
         self._one_solvent_parameter = one_solvent_parameter
         self._interface_value = interface_parameters().calculate_weight_interface (self._cs_phase_1, self._cs_phase_2, self._w_phase_1 ,self._w_phase_2)
-        
+        self._correction_mj = correction_mj
         self._peptide = peptide
         self._pair_energies = pair_energies
         self._penalty_parameters = penalty_parameters
@@ -166,7 +166,7 @@ class QubitOpBuilder:
         main_chain = self._peptide.get_main_chain
         penalty_back = self._penalty_parameters.penalty_back
         h_back = 0
-        for i in range(len(main_chain) - 2):
+        for i in range(len(main_chain)-2):
             h_back += penalty_back * self._create_turn_operators(main_chain[i], main_chain[i + 1])
         h_back = _fix_qubits(h_back, self._has_side_chain_second_bead)
         return h_back
@@ -237,42 +237,46 @@ class QubitOpBuilder:
             else:
                 _pair_energies_phase_1 = self._pair_energies_phase_1
 
-            for i in range(1, main_chain_len-3):
-                for j in range(i + 5, main_chain_len + 1):
-                    if (j - i) % 2 == 0: continue
+            for i in range(1, main_chain_len-3):#-3
+                for j in range(i + 5, main_chain_len + 1):#original value i+5; the i+number must be the same value as k, k=number, in the bead_contact_map_builder.py. Previous i+5 and k=5
+                    if (j - i) % 2 == 0: 
+                        continue
                     energy_phase_1_bead_1 = _pair_energies_phase_1[i][0][i][0]
                     energy_phase_1_bead_2 = _pair_energies_phase_1[j][0][j][0]
                     modification_mj =  energy_phase_1_bead_1 + energy_phase_1_bead_2
-                    h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.first_neighbor(self._peptide, i, 0, j, 0, penalty_1, self._pair_energies, modification_mj))
-                    
-
+                    h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.first_neighbor(self._peptide, i, 0, j, 0, penalty_1, self._pair_energies,self._correction_mj,modification_mj))
+ 
                     try:
                         energy_phase_1_bead_1 = _pair_energies_phase_1[i-1][0][i-1][0]
                         energy_phase_1_bead_2 = _pair_energies_phase_1[j][0][j][0]
                         modification_mj =  energy_phase_1_bead_1 + energy_phase_1_bead_2
-                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i - 1,0,j,0,penalty_1,self._pair_energies, modification_mj))
+                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i - 1,0,j,0,penalty_1,self._pair_energies,self._correction_mj, modification_mj))
                     except (IndexError, KeyError): pass
                     
                     try:
                         energy_phase_1_bead_1 = _pair_energies_phase_1[i+1][0][i+1][0]
                         energy_phase_1_bead_2 = _pair_energies_phase_1[j][0][j][0]
                         modification_mj =  energy_phase_1_bead_1 + energy_phase_1_bead_2
-                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i + 1,0,j,0,penalty_1,self._pair_energies, modification_mj))
+
+                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i + 1,0,j,0,penalty_1,self._pair_energies, self._correction_mj,modification_mj))
                     except (IndexError, KeyError): pass
                     
                     try:
                         energy_phase_1_bead_1 = _pair_energies_phase_1[i][0][i][0]
                         energy_phase_1_bead_2 = _pair_energies_phase_1[j-1][0][j-1][0]
                         modification_mj =  energy_phase_1_bead_1 + energy_phase_1_bead_2
-                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i,0,j - 1,0,penalty_1,self._pair_energies, modification_mj))
+
+                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i,0,j - 1,0,penalty_1,self._pair_energies, self._correction_mj,modification_mj))
                     except (IndexError, KeyError): pass
                     
                     try:
                         energy_phase_1_bead_1 = _pair_energies_phase_1[i][0][i][0]
                         energy_phase_1_bead_2 = _pair_energies_phase_1[j+1][0][j+1][0]
                         modification_mj =  energy_phase_1_bead_1 + energy_phase_1_bead_2
-                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i,0,j + 1,0,penalty_1,self._pair_energies,modification_mj))
+
+                        h_bbbb += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide,i,0,j + 1,0,penalty_1,self._pair_energies,self._correction_mj,modification_mj))
                     except (IndexError, KeyError): pass
+
                     h_bbbb = _fix_qubits(h_bbbb, self._has_side_chain_second_bead)
         else:
             h_bbbb=0
@@ -322,8 +326,6 @@ class QubitOpBuilder:
                 if (i==1):
                     one = value.reduce()
                     break
-        print("one = ", one)
-        print("Ide = ",-1*full_id ) #Creo que esto es mejor, no tenemos que hacer bucle ni depender de obligar a que sea en el axis 1.
         one = -1*full_id # Para tenerlo bien ya
         print("\n\n Now we are going to print the displacementMap that will be used in the interface hamiltonian: \n\n",displacementMap[first_bead].items())
         TotalDisplacements = [] # Empty list to store the displacements of each bead with respect to the initial one.
@@ -334,7 +336,6 @@ class QubitOpBuilder:
         for bead, value in displacementMap[first_bead].items(): # We get the distance to the initial bead
             if bead: # If bead exists  
                 i += 1
-                print('Same: ',(value.reduce(),'that',interface_parameters.displacement_of_the_interface_plane*one))
                 TotalDisplacements.append((value.reduce()-interface_parameters.displacement_of_the_interface_plane*one).reduce()) # We obtain the displacement of each bead with respect to the plane, not with respect to the initial bead, thanks to this displacement of the plane.  
                 
                 # Approximation of the sign function to a polynomial expression.
@@ -361,22 +362,22 @@ class QubitOpBuilder:
                 
                
                #Option 1: We do not take into account the hydrophobicity parameter of the solvent in a phase. Will give a 0, so original MJ is recover
-                if  self._one_solvent_parameter == False: #when one phase original MJ
+                if  self._one_solvent_parameter == False:
                     h_interface +=  self._interface_value * sign_function_approximation * hydrophobicity_value[i]
                     #Finish option 1
                 #Option 2 We take into account the hydrophobicity parameter of the solvent in a phase:
-                elif  self._one_solvent_parameter == True: #when interface
+                elif  self._one_solvent_parameter == True:
+                    print('Interface_value: ',self._one_solvent_parameter)
                     if self._interface_value != 0:
                         h_interface +=  self._interface_value * sign_function_approximation * hydrophobicity_value[i]
-                    else: #In this option csi =csj the case for one solvent
+                    else: #In this option csi =csj
                         # Negative is more stable, so if aa is hydrophobic ( > 0) will interact with the interphace, remember * cs < 0: model hydrophobic solvents (oil), so that should be negative
                         # and also  w < 0:  aminoacids interact on average attractively with the solvent
                         w += 1
                         upper_bead =  self._peptide.get_main_chain[w]
-                        print('distancia: ',distanceMap[bead_initial_distance][upper_bead], 'bead: ',upper_bead, bead_initial_distance)
-                        # no tocar este 0.1 para que sea siempre igual
-                        #h_interface +=  hydrophobicity_value[i]* self._cs_phase_1*(distanceMap[bead_initial_distance][upper_bead]**2)#Hamiltonian to force the system fold depending of the solvent polarity
-                        h_interface = 0 # if only the MJ modification is taken into account
+                        h_interface = 0
+                        # Uncomment this option to force folding.
+                        #h_interface +=  hydrophobicity_value[i]* self._cs_phase_1#*(distanceMap[bead_initial_distance][upper_bead]**2)#Hidrofobicidad marcada por self.cs_phase_1 y tambien si es alta o baja
                 #Finish option 2
         return _fix_qubits(h_interface, self._has_side_chain_second_bead), Sign_function_value
     
@@ -398,7 +399,6 @@ class QubitOpBuilder:
         plane_displacement = interface_parameters.displacement_of_the_interface_plane
         # Check if there are phase 1 energies and the interface weight is not zero
         if self._pair_energies_phase_1 is not None and weight_interface != 0:
-            print('SELF :', self._pair_energies_phase_1, self._pair_energies_phase_2)
             for i in range(1, main_chain_len-3):
                 for j in range(i + 5, main_chain_len + 1):
                     # Consider only pairs (i, j) with odd j-i difference
@@ -407,27 +407,27 @@ class QubitOpBuilder:
                     
 
                     # Add contributions to the main Hamiltonian term
-                    h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.first_neighbor(self._peptide, i, 0, j, 0, penalty_1, self._pair_energies, energy_phase_term))
+                    h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.first_neighbor(self._peptide, i, 0, j, 0, penalty_1, self._pair_energies, self._correction_mj,energy_phase_term))
                 
                     # Add contributions from neighboring beads if they exist
                     try:
                         energy_phase_term = Auxiliar_mj_modification.calculate_pairs_mj_modification(i-1, j, self._pair_energies_phase_1, self._pair_energies_phase_2, sign_function, weight_interface, energy_exchange, plane_displacement)
-                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i - 1, 0, j, 0, penalty_1, self._pair_energies, energy_phase_term))
+                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i - 1, 0, j, 0, penalty_1, self._pair_energies,self._correction_mj, energy_phase_term))
                     except (IndexError, KeyError): pass
                 
                     try:
                         energy_phase_term = Auxiliar_mj_modification.calculate_pairs_mj_modification(i+1, j, self._pair_energies_phase_1, self._pair_energies_phase_2, sign_function, weight_interface, energy_exchange, plane_displacement)
-                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i + 1, 0, j, 0, penalty_1, self._pair_energies, energy_phase_term))
+                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i + 1, 0, j, 0, penalty_1, self._pair_energies,self._correction_mj, energy_phase_term))
                     except (IndexError, KeyError): pass
                 
                     try:
                         energy_phase_term = Auxiliar_mj_modification.calculate_pairs_mj_modification(i, j-1, self._pair_energies_phase_1, self._pair_energies_phase_2, sign_function, weight_interface, energy_exchange, plane_displacement)
-                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i, 0, j - 1, 0, penalty_1, self._pair_energies, energy_phase_term))
+                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i, 0, j - 1, 0, penalty_1, self._pair_energies, self._correction_mj,energy_phase_term))
                     except (IndexError, KeyError): pass
                 
                     try:
                         energy_phase_term = Auxiliar_mj_modification.calculate_pairs_mj_modification(i, j+1, self._pair_energies_phase_1, self._pair_energies_phase_2, sign_function, weight_interface, energy_exchange, plane_displacement)
-                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i, 0, j + 1, 0, penalty_1, self._pair_energies, energy_phase_term))
+                        h_bbbb_media += (self._contact_map.lower_main_upper_main[i][j]) ^ (self._distance_map.second_neighbor(self._peptide, i, 0, j + 1, 0, penalty_1, self._pair_energies, self._correction_mj,energy_phase_term))
                     except (IndexError, KeyError): pass
                 
                     # Correct qubits if necessary

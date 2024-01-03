@@ -88,8 +88,8 @@ class ProteinFoldingProblem(SamplingProblem):
                                                                                   exchange_solvent_solvent,
                                                                                   correction_mj
                                                                                      )
-        print('DA: ',self._pair_energies_correction_mj) 
-        self._qubit_op_builder = QubitOpBuilder(self._peptide, self._pair_energies, self._penalty_parameters,self._pair_energies_correction_mj, self._phase_cs_1, self._phase_cs_2,self._phase_w_1, self._phase_w_2, self._one_solvent_parameter )
+        self._correction_mj = correction_mj
+        self._qubit_op_builder = QubitOpBuilder(self._peptide, self._pair_energies, self._penalty_parameters,self._pair_energies_correction_mj, self._phase_cs_1, self._phase_cs_2,self._phase_w_1, self._phase_w_2, self._one_solvent_parameter,self._correction_mj )
 
         self._unused_qubits: List[int] = []
     
