@@ -182,7 +182,6 @@ class ProteinShapeFileGen:
                         changing_the_plane_by_points.append(['Z', str(x_coord), str(y_coord), str(z_coord)])
                 changing_the_plane_by_points = np.array(changing_the_plane_by_points)
             except ValueError:
-                print('MJ ORIGINS')
                 A = 0; B = 0; C = 0; D = 0
                 ABCD =[A,B,C,D]
                 changing_the_plane_by_points = np.array([0]*4)
@@ -248,12 +247,11 @@ class ProteinShapeFileGen:
         #if interface_parameters().get_weight_interface != 0:
         '''Save plane equation: in order to be plotted and .xyz with the plane particles'''
     
-        if name == '0':
-            print('ENTRA EN 0')
-            name = 'Data_plane'
-            header='Plane ecuation: A,B,C,D'
-            path_plane= os.path.join(path,name + ".txt")
-            np.savetxt(
+        #if name == '0':
+        name = 'Data_plane'
+        header='Plane ecuation: A,B,C,D'
+        path_plane= os.path.join(path,name + ".txt")
+        np.savetxt(
                 fname=path_plane,
                 header=header,
                 X=self.plane_equation,
@@ -263,10 +261,7 @@ class ProteinShapeFileGen:
                 )
 
         if name == 'STABLE' and not name == 'plane_vmd':
-            print('ENTRA EN NO PLANO')
             data_plane = self._data_plane
-            print('DATA: ',data)
-            print('DATA PALANO',data_plane)
             data_new = np.vstack((data,data_plane))
             name_vmd = 'plane_vmd'
             header=f"{number_of_particles}\n{comment}"
@@ -279,7 +274,6 @@ class ProteinShapeFileGen:
                 fmt="%s",
                 comments="",
                 )
-            print('NO SALIO')
     def get_xyz_data(self) -> np.ndarray:
         """
         Returns an array with the symbols of the atoms and their cartesian coordinates.

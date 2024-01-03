@@ -56,7 +56,7 @@ class interface_parameters:
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ''' Value for the displacement of the interface plane. '''
-    displacement_of_the_interface_plane = 0.5 #falta hacer despla 1
+    displacement_of_the_interface_plane = 1. #falta hacer despla 1
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ''' Value for the weight to be given to the interface Hamiltonian:
@@ -96,6 +96,7 @@ class interface_parameters:
             mj_modified_parameters = 1
         
         self._last_calculated_weight = mj_modified_parameters*self._weight_interface
+        print('Interface weight: ',self._last_calculated_weight)
         return  self._last_calculated_weight#mj_modified_parameters*self._weight_interface 
     
 
