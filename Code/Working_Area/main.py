@@ -73,7 +73,7 @@ class VQEHandler:
 
 
 #The Protein consists of a main chain that is a linear chain of aminoacids.
-def search_for_the_most_stable_conformation(main_chain : str, ws_phase_1 : float, cs_phase_1: float, ws_phase_2 : float, cs_phase_2:  float,  exchange_solvent_solvent: float = 0, correction_mj: bool = True, reps: int = 50, maxiter: int = 1, one_solvent_parameter: bool = False,  penalty_back = 10,  penalty_chiral = 10, penalty_1 = 10):
+def search_for_the_most_stable_conformation(main_chain : str, ws_phase_1 : float, cs_phase_1: float, ws_phase_2 : float, cs_phase_2:  float,  exchange_solvent_solvent: float = 0, correction_mj: bool = True, reps: int = 50, maxiter: int = 1, one_solvent_parameter: bool = False,  penalty_back = 1000,  penalty_chiral = 1000, penalty_1 = 1000):
     '''
     
     
@@ -88,8 +88,8 @@ def search_for_the_most_stable_conformation(main_chain : str, ws_phase_1 : float
     * cs_phase_2: model solvent in phase 2
     * exchange_solvent: energy exchange between interfaces
     * correction_mj: indicates whether we decide to use the Miyazawa-Jerningan potential upgrade or not.
-    * reps: 
-    * maxiter: 
+    * reps: number of repetitions
+    * maxiter: maximum number of interactions
     * one_solvent_parameter: These options do not affect the calculation of two phases, is only if we want to add a parameter to modulate the interaction of amino acids according to their hydrophobicity value with the phase.
     * penalty_back: A penalty parameter used to penalize turns along the same axis. This term is used to eliminate sequences where the same axis is chosen twice in a row. In this way we do not allow for a chain to fold back into itself.
     * penalty_chiral: A penalty parameter used to impose the right chirality.
@@ -163,10 +163,10 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
 
     * protein_folding_problem:
     * bitstring: list of all conformations in bitstrng format
-    * counts: 
-    * values: 
-    * result: 
-    * ansatz: 
+    * counts: counts of each final state
+    * values: value of the energy
+    * result: final result of the circuit 
+    * ansatz: initial parameters of our circuit 
     * main_chain: amino acid sequence
     * ws_phase_1: average interaction of an amino acid with solvent in phase 1
     * ws_phase_2: average interaction of an amino acid with solvent in phase 2
@@ -189,16 +189,18 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
 
     '''
     
-    #Valores organizar proyecto:
+    #Values to organize the project:
     plt.tight_layout()
-    displacement_of_the_interface_plane = 0.5
+    displacement_of_the_interface_plane = -0.0
     h_interface = 0.1
     eje = 1
 
-    directorio =  'NEW'+str(main_chain)+'_'+'media1_'+str(cs_phase_1)+'media2_'+str(cs_phase_2)+'displacement'+str(displacement_of_the_interface_plane)+'h_interfece'+str(h_interface)+'eje'+str(eje)+str(correction_mj)+str(one_solvent_parameter)
-     # This segment checks if a directory exists (based on the main_chain parameter) and creates one if it doesn't. Then, it saves the earlier generated plot with a specific naming convention. 
-    if not os.path.exists(directorio):
-        os.makedirs(directorio)
+    # Name of the directory:
+    directory =  str(main_chain)+'_'+'media1_'+str(cs_phase_1)+'media2_'+str(cs_phase_2)+'displacement'+str(displacement_of_the_interface_plane)+'h_interfece'+str(h_interface)+'eje'+str(eje)+str(correction_mj)+str(one_solvent_parameter)
+    
+    # This segment checks if a directory exists (based on the main_chain parameter) and creates one if it doesn't. Then, it saves the earlier generated plot with a specific naming convention. 
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
     # Plot Energy vs. Iterations:
     fig = plt.figure()
@@ -209,7 +211,7 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
     plt.xlabel("VQE Iterations",fontsize=20)
     fig.add_axes([0.44, 0.51, 0.44, 0.32])
     plt.plot(counts[40:], values[40:])
-    with open(directorio+'/'+'energy_iteractions.txt', 'w') as file:
+    with open(directory+'/'+'energy_iteractions.txt', 'w') as file:
         for row in range(len(counts)):
             file.write(f"{counts[row]}\t\t{values[row].real}\n")
     plt.ylabel("Conformation Energy", fontsize=18)
@@ -219,7 +221,7 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
 
     # Save Energy Plot:
     
-    plt.savefig(directorio+'/'+'Energy_'+str(main_chain)+'_'+'media1_'+str(ws_phase_1)+'_'+str(cs_phase_1)+'media2_'+str(ws_phase_2)+'_'+str(cs_phase_2)+'exchange_'+str(exchange_solvent)+str(correction_mj)+'.png')#, bbox_inches='tight')
+    plt.savefig(directory+'/'+'Energy_'+str(main_chain)+'_'+'media1_'+str(ws_phase_1)+'_'+str(cs_phase_1)+'media2_'+str(ws_phase_2)+'_'+str(cs_phase_2)+'exchange_'+str(exchange_solvent)+str(correction_mj)+'.png')#, bbox_inches='tight')
     
     # Print Bitstring Representation:
     print("The bitstring representing the shape of the protein during optimization is: ",result.turn_sequence,)
@@ -229,14 +231,14 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
     # Generate and Save Protein Structure Plot:
     fig = result.get_figure(title="Protein Structure", ticks=False, grid=True)
     fig.get_axes()[0].view_init(10, 70)
-    plt.savefig(directorio+'/'+'Conformation_'+str(main_chain)+'_'+'media1_'+str(ws_phase_1)+'_'+str(cs_phase_1)+'media2_'+str(ws_phase_2)+'_'+str(cs_phase_2)+'exchange_'+str(exchange_solvent)+str(correction_mj)+'.png')
+    plt.savefig(directory+'/'+'Conformation_'+str(main_chain)+'_'+'media1_'+str(ws_phase_1)+'_'+str(cs_phase_1)+'media2_'+str(ws_phase_2)+'_'+str(cs_phase_2)+'exchange_'+str(exchange_solvent)+str(correction_mj)+'.png')
     
     # Save Most Stable Conformation: This section tries to save the most stable conformation in an .xyz file. If a file named STABLE already exists, it deletes that file and saves anew.
     try:
-        result.save_xyz_file(name='STABLE', path=directorio)
+        result.save_xyz_file(name='STABLE', path=directory)
     except FileExistsError:
-        os.remove(os.path.join(directorio, 'STABLE.xyz'))
-        result.save_xyz_file(name='STABLE', path=directorio)
+        os.remove(os.path.join(directory, 'STABLE.xyz'))
+        result.save_xyz_file(name='STABLE', path=directory)
 
     # Generate and Save Video: When the video parameter is set to True, this block saves each protein conformation as individual .xyz files. 
     # It then combines these files into a single output.xyz file, creating a continuous representation of the protein's conformation changes. Any individual .xyz files apart from output.xyz and STABLE.xyz are then removed.
@@ -244,18 +246,17 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
         try:
             for elemento in range(len(bitstring)):
                 result_intermediate = protein_folding_problem.interpret_intermediate(bitstring = bitstring[elemento])
-                result_intermediate.save_xyz_file(name=str(elemento),path=directorio)
-            #directorio = str(main_chain)+'_'+'media1_'+str(ws_phase_1)+'_'+str(cs_phase_1)+'media2_'+str(ws_phase_2)+'_'+str(cs_phase_2)+'exchange_'+str(exchange_solvent)+str(correction_mj)
-            filenames = sorted(glob.glob(os.path.join(directorio, "*.xyz")), key=extract_number)
-            with open(os.path.join(directorio, "output.xyz"), "w") as outfile:
+                result_intermediate.save_xyz_file(name=str(elemento),path=directory)
+            filenames = sorted(glob.glob(os.path.join(directory, "*.xyz")), key=extract_number)
+            with open(os.path.join(directory, "output.xyz"), "w") as outfile:
                 for filename in filenames:
                     with open(filename, "r") as infile:
                         for line in infile:
                             outfile.write(line)
-            archivos_xyz = [archivo for archivo in os.listdir(directorio) if archivo.endswith(".xyz")]
+            archivos_xyz = [archivo for archivo in os.listdir(directory) if archivo.endswith(".xyz")]
             for archivo in archivos_xyz:
                 if archivo not in [ "output.xyz","STABLE.xyz","plane_vmd.xyz"]:
-                    archivo_path = os.path.join(directorio, archivo)
+                    archivo_path = os.path.join(directory, archivo)
                     os.remove(archivo_path)
         except FileExistsError:
             pass
@@ -263,7 +264,7 @@ def create_figure(protein_folding_problem, bitstring: list, counts: list, values
         pass
 
     # Return Statement:
-    path = directorio
+    path = directory
     return result.turn_sequence,path
 
 
@@ -350,7 +351,7 @@ algorithm_globals.random_seed = 23
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
 #            INPUTS          #
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
-main_chain = "WRDWGSGWDR" # Peptide sequence
+main_chain = "DRDRDRDRDR" # Peptide sequence
 
 '''
 
@@ -392,20 +393,20 @@ The original IBM work can be obtained by setting up:
 * one_solvent_paramenter = False
 '''
 # Values of the first fase
-ws_1 = 0.2
-cs_1 = 0.8
+ws_1 = 10.
+cs_1 = -10
 
 # Values of the second fase
-ws_2 = 0.2 
-cs_2 = -0.4
+ws_2 = 10. 
+cs_2 = -10
 
 # Energy exchange between interfaces
 exchange_solvent_solvent = 0.
 
 #This parameter allows you to indicate whether you want to apply the Miyazawa - Jerningan potential correction ( True ), or not (False). 
-correction = False
+correction = True
 # One_solvent_parameter: These options do not affect the calculation of two phases, is only if we want to add a parameter to modulate the interaction of amino acids according to their hydrophobicity value with the phase.
-one_solvent_parameter = False
+one_solvent_parameter = True
 # Quantum simulation parameters
 reps = 1 
 maxiter = 200
@@ -443,8 +444,8 @@ with open(information_file, 'a') as file:
     file.write(f"{execution_time:<20.11f}\t\t{str(main_chain):<10}\t\t{ws_1:<5}\t\t{cs_1:<5}\t\t{ws_2:<5}\t\t{cs_2:<5}\t\t{exchange_solvent_solvent:<5}\t\t{reps:<5}\t\t{maxiter:<5}\t\t{qubits_availables[-1]:<5}\t\t{len(str(bitstring))}\t\tmod\n")
 
 # Create a figure of the peptide
-figure,path = create_figure(protein_folding_problem, bitstring,counts,values,result,ansatz,main_chain,ws_1,cs_1,ws_2,cs_2,exchange_solvent_solvent, correction,one_solvent_parameter, True)
-
+figure,path = create_figure(protein_folding_problem, bitstring,counts,values,result,ansatz,main_chain,ws_1,cs_1,ws_2,cs_2,exchange_solvent_solvent, correction,one_solvent_parameter, False)
+print('PROBLEMA HISTOGRAMA')
 # Create a histogram of all the bitstrings searched for.
 histogram = histogram(bitstring[:],energy[:],path)
 
