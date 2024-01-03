@@ -81,7 +81,7 @@ def _create_contact_qubits(
             # discriminating the folds, see https://arxiv.org/pdf/1908.02163v1.pdf section C
             #range(lower_bead_id + 3, main_chain_len + 1)
             if _are_beads_in_different_sets(upper_bead_id, lower_bead_id):
-                if _are_beads_k_plus_steps_apart(upper_bead_id, lower_bead_id, k=5):
+                if _are_beads_k_plus_steps_apart(upper_bead_id, lower_bead_id, k=5): #k=same value in qubit_op,  _create_h_bbbb line 241
                     contact_op_block_position = 3
                     _log_contact(
                         lower_bead_id, upper_bead_id, "main_chain", "main_chain"

@@ -81,7 +81,6 @@ class DistanceMap:
         bounding_constant = 7
         lower_bead = peptide.get_main_chain[lower_bead_ind - 1]
         upper_bead = peptide.get_main_chain[upper_bead_ind - 1]   
-             
         lambda_0 = bounding_constant * (upper_bead_ind - lower_bead_ind + 1) * lambda_1
         if is_side_chain_lower == 1: lower_bead = lower_bead.side_chain[0]
         if is_side_chain_upper == 1: upper_bead = upper_bead.side_chain[0]
@@ -95,6 +94,10 @@ class DistanceMap:
             if  energy_mod_mj == 0 or None:
                 energy_mod_mj = 0
                 energy_mod_mj =  energy_mod_mj* _build_full_identity(x.num_qubits)
+            elif isinstance(energy_mod_mj, float) == True:
+                energy_mod_mj =  energy_mod_mj* _build_full_identity(x.num_qubits)
+            
+            print('Modification energy: ',energy_mod_mj)
             expression = lambda_0 * (x - _build_full_identity(x.num_qubits)) + pair_energies_multiplier * (energy * _build_full_identity(x.num_qubits) -  energy_mod_mj )
 
 
@@ -125,18 +128,19 @@ class DistanceMap:
 
         energy = pair_energies[lower_bead_ind][is_side_chain_upper][upper_bead_ind][is_side_chain_lower]
         lower_bead = peptide.get_main_chain[lower_bead_ind - 1]
-        upper_bead = peptide.get_main_chain[upper_bead_ind - 1]
+        upper_bead = peptide.get_main_chain[upper_bead_ind- 1]
         if is_side_chain_lower == 1: lower_bead = lower_bead.side_chain[0]
         if is_side_chain_upper == 1: upper_bead = upper_bead.side_chain[0]
         x = self.distance_map[lower_bead][upper_bead]
-
          # choose if use the modification of the Miyazawa - Jerningan potential or the original one
         if adjustment_mj == False:
             expression = lambda_1 * (2 * (_build_full_identity(x.num_qubits)) - x) + pair_energies_multiplier * energy * _build_full_identity(x.num_qubits)
-        else: 
+        else:
             if  energy_mod_mj == 0 or energy_mod_mj == None:
                 energy_mod_mj = 0
                 energy_mod_mj =  energy_mod_mj* _build_full_identity(x.num_qubits)
+            elif  isinstance(energy_mod_mj, float) == True:
+                energy_mod_mj =  energy_mod_mj* _build_full_identity(x.num_qubits)
 
-            expression = lambda_1 * (2 * (_build_full_identity(x.num_qubits)) - x) + pair_energies_multiplier *( energy * _build_full_identity(x.num_qubits) -  energy_mod_mj)
+            expression = lambda_1* (2 * (_build_full_identity(x.num_qubits)) - x) + pair_energies_multiplier *( energy * _build_full_identity(x.num_qubits) -  energy_mod_mj)
         return _fix_qubits(expression)
