@@ -95,17 +95,8 @@ class MiyazawaJerniganInteraction(Interaction):
                 solvent_phase_1[i, 0, i, 0]=1/2*(1-phase_cs_1)*mj_interaction[min(aa_i, aa_i),max(aa_i, aa_i)]+phase_w_1
                 solvent_phase_2[i, 0, i, 0]=1/2*(1-phase_cs_2)*mj_interaction[min(aa_i, aa_i),max(aa_i, aa_i)]+phase_w_2
                 
-                # A nested loop then computes the sum of energies (ejj) for the amino acid with all other amino acids in the chain: sum_{j}^{N}=ejj
-                ejj = 0
-                for j in range(1, chain_len + 1):#maybe the 20 aa
-                    aa_j = list_aa.index(residue_sequence[j - 1])
-                    ejj += ejj + mj_interaction[min(aa_j, aa_j),max(aa_j, aa_j)]
-                
-                # Result for each phase: Updated 
-                #change chain_len with 20 aa
-                solvent_phase_1[i, 0, i, 0]= solvent_phase_1[i, 0, i, 0] + phase_cs_1/(2*chain_len)*ejj
-                solvent_phase_2[i, 0, i, 0]= solvent_phase_2[i, 0, i, 0] + phase_cs_2/(2*chain_len)*ejj
-                print('SELF 1',solvent_phase_1, solvent_phase_2)
+            '''  space if someone wants to add the code to calculate w instead of w'. '''
+
             return solvent_phase_1,solvent_phase_2,exchange_solvent_solvent
             
         # If not, it will return None values: This implies working with the original Miyazawa-Jerningan potential.
