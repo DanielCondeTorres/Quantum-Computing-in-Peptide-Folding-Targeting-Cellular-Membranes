@@ -251,7 +251,7 @@ Please make sure to update tests as appropriate.
 
 <!-- Cite --> 
 ## Cite :mortar_board:
-
+Conde-Torres, D., Mussa-Juane, M., Faílde, D., Gómez, A., García-Fandiño, R., and Piñeiro, Á., “Interface-Driven Peptide Folding: Quantum Computations on Simulated Membrane Surfaces”, <i>arXiv e-prints</i>, 2024.
 
 **Also cite:**
 
