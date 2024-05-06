@@ -79,7 +79,7 @@ def _calc_updated_coeffs(
 
 
 def _preset_binary_vals(table_z, has_side_chain_second_bead: bool):
-    main_beads_indices = [0, 1, 2, 3]
+    main_beads_indices = [0] #, 1, 2, 3]
     if not has_side_chain_second_bead:
         main_beads_indices.append(5)
     for index in main_beads_indices:
